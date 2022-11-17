@@ -10,9 +10,14 @@ export const roboto = Roboto({
   fallback: ["Helvetica", "Arial", "sans-serif"],
 });
 
+// const getThemeByName = (name) => {
+//   return {something: 0}
+// }
+
 const getPalette = (mode: PaletteMode = THEME_MODE.LIGHT as PaletteMode) => ({
   palette: {
     mode,
+    // ...getThemeByName('fill_name'),
     ...(mode === THEME_MODE.LIGHT
       ? {
           background: {

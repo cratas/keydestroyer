@@ -3,16 +3,31 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { AppProps } from "next/app";
 import { THEME_MODE } from "../constants/enums";
 import getPalette from "../theme/theme";
-import { PaletteMode } from "@mui/material";
+import { CssBaseline, PaletteMode } from "@mui/material";
+import { Helmet, HelmetProvider } from "react-helmet-async";
+import SettingsExpander from "../components/SettingsExpander";
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
-  const [selectedTheme, setSelectedTheme] = useState<PaletteMode>(THEME_MODE.LIGHT as PaletteMode);
-  const theme = useMemo(() => createTheme(getPalette(selectedTheme)), [selectedTheme]);
+  const [selectedTheme, setSelectedTheme] = useState<PaletteMode>(
+    THEME_MODE.LIGHT as PaletteMode
+  );
+
+  const theme = useMemo(
+    () => createTheme(getPalette(selectedTheme)),
+    [selectedTheme]
+  );
 
   return (
-    <ThemeProvider theme={theme}>
-      <Component {...pageProps} setSelectedTheme={setSelectedTheme} />
-    </ThemeProvider>
+    <HelmetProvider>
+      <Helmet>
+        <title>TryType</title>
+      </Helmet>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <Component {...pageProps} setSelectedTheme={setSelectedTheme} />
+        <SettingsExpander />
+      </ThemeProvider>
+    </HelmetProvider>
   );
 };
 

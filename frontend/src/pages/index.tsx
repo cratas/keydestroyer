@@ -1,17 +1,9 @@
-import Box from "@mui/material/Box";
+import Layout from "../components/Layout";
 
 const Index = ({ setSelectedTheme }) => {
   console.log(setSelectedTheme);
 
-  return (
-    <Box
-      sx={{
-        bgcolor: "background.default",
-      }}
-    >
-      Hello word
-    </Box>
-  );
+  return <Layout>{null}</Layout>;
 };
 
 export default Index;
