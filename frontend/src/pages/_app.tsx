@@ -9,7 +9,7 @@ import SettingsExpander from "../components/SettingsExpander";
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
   const [selectedTheme, setSelectedTheme] = useState<PaletteMode>(
-    THEME_MODE.DARK as PaletteMode
+    THEME_MODE.LIGHT as PaletteMode
   );
 
   const theme = useMemo(
@@ -20,7 +20,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
   return (
     <HelmetProvider>
       <Helmet>
-        <title>TryType</title>
+        <title>Key Destroyer</title>
       </Helmet>
       <ThemeProvider theme={theme}>
         <CssBaseline />

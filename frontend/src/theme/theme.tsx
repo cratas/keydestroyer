@@ -1,5 +1,4 @@
 import { Roboto } from "@next/font/google";
-import { red } from "@mui/material/colors";
 import { THEME_MODE } from "../constants/enums";
 import { PaletteMode } from "@mui/material";
 
@@ -23,28 +22,22 @@ const getPalette = (mode: PaletteMode = THEME_MODE.LIGHT as PaletteMode) => ({
           background: {
             default: "#fff",
           },
-          primary: {
-            main: "#556cd6",
+          dark_100: {
+            main: "red",
           },
-          secondary: {
+          light_100: {
             main: "#19857b",
-          },
-          error: {
-            main: red.A400,
           },
         }
       : {
           background: {
             default: "#000",
           },
-          primary: {
-            main: "#556cd6",
+          dark_100: {
+            main: "red",
           },
-          secondary: {
+          light_100: {
             main: "#19857b",
-          },
-          error: {
-            main: red.A400,
           },
         }),
   },
