@@ -9,7 +9,7 @@ import SettingsExpander from "../components/SettingsExpander";
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
   const [selectedTheme, setSelectedTheme] = useState<PaletteMode>(
-    THEME_MODE.LIGHT as PaletteMode
+    THEME_MODE.DARK as PaletteMode
   );
 
   const theme = useMemo(

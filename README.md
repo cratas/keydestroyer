@@ -1,2 +1,2 @@
-<h1>TryType</h1>
-<p>TryType is a place where anyone can test or practice their typing speed. Dog is highly customizable thanks to the ability to change the theme, language and more from many settings. Any user can sign up and get the ability to set things up to their liking and look at stats of all kinds.</p>
+<h1>Key Destroyer</h1>
+<p>Key Destroyer is an app that anyone can use to test or practice their typing speed. Key Destroyer is highly customizable with the ability to change the theme, language and more from many settings. Any user can sign up and get the ability to customize everything to their liking and see stats of all kinds.</p>
