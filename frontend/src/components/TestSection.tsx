@@ -1,15 +1,16 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Box, Typography } from "@mui/material";
+import styles from "./cursor.module.css";
 
 type Props = {};
 
-const Char = ({ active, text, correct, handleCurrentRow, handleRowHeight }) => {
+const Char = ({ active, text, correct, handleCurrentRow }) => {
   const activeRef = useRef(null);
 
   useEffect(() => {
     if (active) {
       handleCurrentRow(activeRef?.current?.offsetTop);
-      handleRowHeight(activeRef?.current?.offsetHeight);
+      // handleRowHeight(activeRef?.current?.offsetHeight);
     }
   }, [active]);
 
@@ -33,7 +34,7 @@ const Char = ({ active, text, correct, handleCurrentRow, handleRowHeight }) => {
 
   if (active) {
     return (
-      <span ref={activeRef} style={{ color: "black" }}>
+      <span className={styles.activeChar} ref={activeRef} style={{ color: "black" }}>
         {text}
       </span>
     );
@@ -55,7 +56,7 @@ const TestSection = () => {
   const [currentRow, setCurrentRow] = useState<number>(0);
   const [currentRowIndex, setCurrentRowIndex] = useState<number>(-1);
   const [userInput, setUserInput] = useState<string>("");
-  const [rowHeight, setRowHeight] = useState(41);
+  const [rowHeight, setRowHeight] = useState(41); // it should be set as static property
 
   const [activeCharIndex, setActiveCharIndex] = useState<number>(-1);
   const [correctCharArray, setCorrectCharArray] = useState([]);
@@ -99,6 +100,7 @@ const TestSection = () => {
       >
         {text.map((character, index) => (
           <MemoizedChar
+            key={index}
             text={character}
             active={index === activeCharIndex}
             correct={correctCharArray[index]}
@@ -107,10 +109,6 @@ const TestSection = () => {
                 setCurrentRow(value);
                 setCurrentRowIndex(currentRowIndex + 1);
               }
-            }}
-            handleRowHeight={(value: number) => {
-              console.log(value);
-              if (value > 0) setRowHeight(value);
             }}
           />
         ))}
