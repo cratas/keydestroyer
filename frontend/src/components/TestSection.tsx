@@ -3,24 +3,32 @@ import { Box, Typography } from "@mui/material";
 
 type Props = {};
 
-const Char = ({ active, text, correct, handleCurrentWidth }) => {
-  const rerender = useRef(0);
+const Char = ({ active, text, correct, handleCurrentRow, handleRowHeight }) => {
   const activeRef = useRef(null);
 
   useEffect(() => {
-    active && handleCurrentWidth(activeRef?.current.offsetWidth);
+    if (active) {
+      handleCurrentRow(activeRef?.current?.offsetTop);
+      handleRowHeight(activeRef?.current?.offsetHeight);
+    }
   }, [active]);
-
-  useEffect(() => {
-    rerender.current += 1;
-  });
 
   if (correct === true) {
     return <span style={{ color: "green" }}>{text}</span>;
   }
 
   if (correct === false) {
-    return <span style={{ color: "red" }}>{text}</span>;
+    return (
+      <span
+        style={{
+          color: "red",
+          marginTop: 0,
+          marginBottom: 0,
+        }}
+      >
+        {text}
+      </span>
+    );
   }
 
   if (active) {
@@ -39,18 +47,20 @@ const MemoizedChar = React.memo(Char);
 const text =
   "hello kamil if know may affect after because it help more hello kamil if know may affect after because it help morehello kamil if know may affect after because it help morehello kamil if know may affect after because it help morehello kamil if know may affect after because it help morehello kamil if know may affect after because it help morehello kamil if know may affect after because it help more";
 
-const TestSection = (props: Props) => {
+const getCloud = () => {
+  return text.split("");
+};
+
+const TestSection = () => {
+  const [currentRow, setCurrentRow] = useState<number>(0);
+  const [currentRowIndex, setCurrentRowIndex] = useState<number>(-1);
   const [userInput, setUserInput] = useState<string>("");
-  const [activeRowWidth, setActiveRowWidth] = useState<number>(0);
-
-  const getCloud = () => {
-    return text.split("");
-  };
-
-  const cloud = useRef(getCloud());
+  const [rowHeight, setRowHeight] = useState(41);
 
   const [activeCharIndex, setActiveCharIndex] = useState<number>(-1);
   const [correctCharArray, setCorrectCharArray] = useState([]);
+
+  const text = getCloud();
 
   const processInput = (value) => {
     // the user has finsihed this word
@@ -61,7 +71,7 @@ const TestSection = (props: Props) => {
     setCorrectCharArray((data) => {
       const word = value.trim();
       const newResult = [...data];
-      newResult[activeCharIndex] = word === cloud.current[activeCharIndex];
+      newResult[activeCharIndex] = word === text[activeCharIndex];
 
       return newResult;
     });
@@ -71,26 +81,40 @@ const TestSection = (props: Props) => {
   const testRef = useRef(null);
 
   useEffect(() => {
-    console.log("active row width", activeRowWidth);
-    console.log("test width", testRef?.current?.offsetWidth);
-  }, [activeRowWidth]);
+    if (currentRowIndex > 0) {
+      testRef.current.scroll(0, rowHeight * currentRowIndex);
+    }
+  }, [currentRowIndex]);
 
   return (
     <Box>
-      <Box ref={testRef}>
-        <Typography variant={"h5"}>
-          {cloud.current.map((character, index) => (
-            <MemoizedChar
-              text={character}
-              active={index === activeCharIndex}
-              correct={correctCharArray[index]}
-              handleCurrentWidth={(value) =>
-                setActiveRowWidth(activeRowWidth + value)
+      <Typography
+        variant={"h4"}
+        ref={testRef}
+        sx={{
+          // lineHeight: "100%",
+          height: `${rowHeight * 3}px`,
+          overflowY: "hidden",
+        }}
+      >
+        {text.map((character, index) => (
+          <MemoizedChar
+            text={character}
+            active={index === activeCharIndex}
+            correct={correctCharArray[index]}
+            handleCurrentRow={(value: number) => {
+              if (value > currentRow) {
+                setCurrentRow(value);
+                setCurrentRowIndex(currentRowIndex + 1);
               }
-            />
-          ))}
-        </Typography>
-      </Box>
+            }}
+            handleRowHeight={(value: number) => {
+              console.log(value);
+              if (value > 0) setRowHeight(value);
+            }}
+          />
+        ))}
+      </Typography>
 
       <input
         type="text"
