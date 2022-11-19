@@ -1,68 +1,101 @@
-import React, { useRef, useCallback, useEffect, useState } from "react";
-import { Box } from "@mui/material";
-import tmp from "./tmp.module.css";
+import React, { useEffect, useRef, useState } from "react";
+import { Box, Typography } from "@mui/material";
 
 type Props = {};
+
+const Char = ({ active, text, correct, handleCurrentWidth }) => {
+  const rerender = useRef(0);
+  const activeRef = useRef(null);
+
+  useEffect(() => {
+    active && handleCurrentWidth(activeRef?.current.offsetWidth);
+  }, [active]);
+
+  useEffect(() => {
+    rerender.current += 1;
+  });
+
+  if (correct === true) {
+    return <span style={{ color: "green" }}>{text}</span>;
+  }
+
+  if (correct === false) {
+    return <span style={{ color: "red" }}>{text}</span>;
+  }
+
+  if (active) {
+    return (
+      <span ref={activeRef} style={{ color: "black" }}>
+        {text}
+      </span>
+    );
+  }
+
+  return <span style={{ color: "grey" }}>{text}</span>;
+};
+
+const MemoizedChar = React.memo(Char);
 
 const text =
   "hello kamil if know may affect after because it help more hello kamil if know may affect after because it help morehello kamil if know may affect after because it help morehello kamil if know may affect after because it help morehello kamil if know may affect after because it help morehello kamil if know may affect after because it help morehello kamil if know may affect after because it help more";
 
 const TestSection = (props: Props) => {
-  const inputRef = useRef(null);
-  const [currentPosition, setCurrentPosition] = useState<number>(0);
+  const [userInput, setUserInput] = useState<string>("");
+  const [activeRowWidth, setActiveRowWidth] = useState<number>(0);
 
-  const [message, setMessage] = useState<string>("");
+  const getCloud = () => {
+    return text.split("");
+  };
+
+  const cloud = useRef(getCloud());
+
+  const [activeCharIndex, setActiveCharIndex] = useState<number>(-1);
+  const [correctCharArray, setCorrectCharArray] = useState([]);
+
+  const processInput = (value) => {
+    // the user has finsihed this word
+    setActiveCharIndex((index) => index + 1);
+    setUserInput("");
+
+    // correct word
+    setCorrectCharArray((data) => {
+      const word = value.trim();
+      const newResult = [...data];
+      newResult[activeCharIndex] = word === cloud.current[activeCharIndex];
+
+      return newResult;
+    });
+    setUserInput(value);
+  };
+
+  const testRef = useRef(null);
 
   useEffect(() => {
-    // Setting focus here
-    inputRef.current.setSelectionRange(currentPosition, currentPosition);
-    inputRef.current.focus();
-  }, [currentPosition]);
-
-  const myStyle = {
-    fontSize: "30px",
-    border: "none",
-    left: `${currentPosition *10 * -1}px`,
-  };
-
-  const handleChange = (event) => {
-    console.log(event.nativeEvent.data);
-
-    if (event.nativeEvent.data === Array.from(text)[currentPosition]) {
-      setMessage(event.target.value);
-      setCurrentPosition(currentPosition + 1);
-    } else {
-      return;
-    }
-  };
+    console.log("active row width", activeRowWidth);
+    console.log("test width", testRef?.current?.offsetWidth);
+  }, [activeRowWidth]);
 
   return (
-    <Box
-      sx={{
-        position: "relative",
-        overflow: "hidden",
-        width: "auto",
-        height: "40rem",
-      }}
-    >
+    <Box>
+      <Box ref={testRef}>
+        <Typography variant={"h5"}>
+          {cloud.current.map((character, index) => (
+            <MemoizedChar
+              text={character}
+              active={index === activeCharIndex}
+              correct={correctCharArray[index]}
+              handleCurrentWidth={(value) =>
+                setActiveRowWidth(activeRowWidth + value)
+              }
+            />
+          ))}
+        </Typography>
+      </Box>
+
       <input
-        ref={inputRef}
-        id="w3review"
-        style={{ position: "absolute", width: "100%", ...myStyle }}
-        placeholder={text}
-      />
-      <input
-        ref={inputRef}
-        id="w3review"
-        style={{
-          position: "absolute",
-          width: "100%",
-          zIndex: 1,
-          background: "transparent",
-          ...myStyle,
-        }}
-        value={message}
-        onChange={handleChange}
+        type="text"
+        value={userInput}
+        onChange={(e) => processInput(e.target.value)}
       />
     </Box>
   );

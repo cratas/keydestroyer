@@ -9,7 +9,7 @@ const Index = ({ setSelectedTheme }) => {
     <Layout>
       <Box
         sx={{
-          backgroundColor: "grey",
+          backgroundColor: "white",
           width: "100%",
           height: "10rem",
           my: 2,
