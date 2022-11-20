@@ -15,7 +15,7 @@ const Char = ({ active, text, correct, handleCurrentRow }) => {
   }, [active]);
 
   if (correct === true) {
-    return <span style={{ color: "green" }}>{text}</span>;
+    return <span style={{ color: "black" }}>{text}</span>;
   }
 
   if (correct === false) {
@@ -25,6 +25,7 @@ const Char = ({ active, text, correct, handleCurrentRow }) => {
           color: "red",
           marginTop: 0,
           marginBottom: 0,
+          textDecoration: 'underline'
         }}
       >
         {text}
@@ -34,7 +35,11 @@ const Char = ({ active, text, correct, handleCurrentRow }) => {
 
   if (active) {
     return (
-      <span className={styles.activeChar} ref={activeRef} style={{ color: "black" }}>
+      <span
+        className={styles.activeChar}
+        ref={activeRef}
+        style={{ color: "black" }}
+      >
         {text}
       </span>
     );
@@ -58,7 +63,7 @@ const TestSection = () => {
   const [userInput, setUserInput] = useState<string>("");
   const [rowHeight, setRowHeight] = useState(41); // it should be set as static property
 
-  const [activeCharIndex, setActiveCharIndex] = useState<number>(-1);
+  const [activeCharIndex, setActiveCharIndex] = useState<number>(0);
   const [correctCharArray, setCorrectCharArray] = useState([]);
 
   const text = getCloud();
@@ -70,13 +75,10 @@ const TestSection = () => {
 
     // correct word
     setCorrectCharArray((data) => {
-      const word = value.trim();
       const newResult = [...data];
-      newResult[activeCharIndex] = word === text[activeCharIndex];
-
+      newResult[activeCharIndex] = value === text[activeCharIndex];
       return newResult;
     });
-    setUserInput(value);
   };
 
   const testRef = useRef(null);
@@ -87,15 +89,17 @@ const TestSection = () => {
     }
   }, [currentRowIndex]);
 
+  const inputRef = useRef(null);
+
   return (
-    <Box>
+    <Box sx={{ zIndex: "10000" }} onClick={() => inputRef.current.focus()}>
       <Typography
         variant={"h4"}
         ref={testRef}
         sx={{
           // lineHeight: "100%",
           height: `${rowHeight * 3}px`,
-          overflowY: "hidden",
+          overflow: "hidden",
         }}
       >
         {text.map((character, index) => (
@@ -113,10 +117,11 @@ const TestSection = () => {
           />
         ))}
       </Typography>
-
       <input
         type="text"
         value={userInput}
+        ref={inputRef}
+        style={{ position: "absolute" }}
         onChange={(e) => processInput(e.target.value)}
       />
     </Box>
