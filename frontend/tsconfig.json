@@ -17,6 +17,6 @@
     "incremental": true,
     "noUnusedParameters": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/components/TestSection.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/components/TestSection.js", "src/theme/theme.js"],
   "exclude": ["node_modules"]
 }

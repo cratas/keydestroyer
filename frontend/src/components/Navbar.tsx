@@ -1,6 +1,6 @@
 import { Box, Link, Button } from "@mui/material";
 import React from "react";
-import logo from "../assets/logo-black-2.png";
+import BrandIcon from "./BrandIcon";
 
 const Navbar = () => {
   return (
@@ -12,20 +12,24 @@ const Navbar = () => {
         alignItems: "center",
       }}
     >
-      <Box>
-        <img width={300} src={logo.src} alt="main-logo" />
-      </Box>
+      <BrandIcon />
 
       <Box>
-        <Link href="#" underline="none" fontWeight="bold" color="black" mr={3}>
+        <Link
+          href="#"
+          underline="none"
+          fontWeight="bold"
+          sx={{ color: "secondary.main" }}
+          mr={3}
+        >
           Log In
         </Link>
         <Button
           variant="contained"
           sx={{
-            backgroundColor: "black",
-            color: "white",
             textTransform: "none",
+            color: "primary.main",
+            backgroundColor: "secondary.main",
           }}
           size="medium"
         >

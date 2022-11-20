@@ -13,7 +13,7 @@ const SettingsExpander = () => {
         right: "0",
         cursor: "pointer",
         transform: "translateY(-50%)",
-        backgroundColor: "black",
+        backgroundColor: "secondary.main",
         p: 0.9,
         borderTopLeftRadius: 10,
         borderBottomLeftRadius: 10,
@@ -21,7 +21,7 @@ const SettingsExpander = () => {
     >
       <SettingsIcon
         sx={{
-          color: "white",
+          color: "primary.main",
           fontSize: 25,
           animation: "spin 17s linear infinite",
           "@keyframes spin": {

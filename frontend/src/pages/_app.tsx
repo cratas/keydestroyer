@@ -2,10 +2,13 @@ import React, { useState, useMemo } from "react";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { AppProps } from "next/app";
 import { THEME_MODE } from "../constants/enums";
-import getPalette from "../theme/theme";
 import { CssBaseline, PaletteMode } from "@mui/material";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import SettingsExpander from "../components/SettingsExpander";
+import { deepmerge } from "@mui/utils";
+import customTheme, { getPalette } from "../theme/theme";
+import store from "../redux/store";
+import { Provider } from "react-redux";
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
   const [selectedTheme, setSelectedTheme] = useState<PaletteMode>(
@@ -13,21 +16,23 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
   );
 
   const theme = useMemo(
-    () => createTheme(getPalette(selectedTheme)),
+    () => createTheme(deepmerge(getPalette(selectedTheme), customTheme)),
     [selectedTheme]
   );
 
   return (
-    <HelmetProvider>
-      <Helmet>
-        <title>Key Destroyer</title>
-      </Helmet>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <Component {...pageProps} setSelectedTheme={setSelectedTheme} />
-        <SettingsExpander />
-      </ThemeProvider>
-    </HelmetProvider>
+    <Provider store={store}>
+      <HelmetProvider>
+        <Helmet>
+          <title>Key Destroyer</title>
+        </Helmet>
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
+          <Component {...pageProps} setSelectedTheme={setSelectedTheme} />
+          <SettingsExpander />
+        </ThemeProvider>
+      </HelmetProvider>
+    </Provider>
   );
 };
 

@@ -19,25 +19,25 @@ const getPalette = (mode: PaletteMode = THEME_MODE.LIGHT as PaletteMode) => ({
     // ...getThemeByName('fill_name'),
     ...(mode === THEME_MODE.LIGHT
       ? {
+          primary: {
+            main: "#fff",
+          },
+          secondary: {
+            main: "#000",
+          },
           background: {
             default: "#fff",
           },
-          dark_100: {
-            main: "red",
-          },
-          light_100: {
-            main: "#19857b",
-          },
         }
       : {
+          primary: {
+            main: "#000",
+          },
+          secondary: {
+            main: "#fff",
+          },
           background: {
             default: "#000",
-          },
-          dark_100: {
-            main: "red",
-          },
-          light_100: {
-            main: "#19857b",
           },
         }),
   },
@@ -46,4 +46,22 @@ const getPalette = (mode: PaletteMode = THEME_MODE.LIGHT as PaletteMode) => ({
   },
 });
 
-export default getPalette;
+const { palette } = getPalette();
+
+const customTheme = {
+  components: {
+    MuButton: {
+      styleOverrides: {
+        root: {
+          textTransform: "none",
+          color: palette.primary.main,
+          backgroundColor: palette.secondary.main,
+        },
+      },
+    },
+  },
+};
+
+export { getPalette };
+
+export default customTheme;
