@@ -22,7 +22,7 @@ const SettingsExpander = () => {
       <SettingsIcon
         sx={{
           color: "white",
-          fontSize: 30,
+          fontSize: 25,
           animation: "spin 17s linear infinite",
           "@keyframes spin": {
             "0%": {

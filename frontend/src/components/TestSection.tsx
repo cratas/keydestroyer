@@ -69,11 +69,9 @@ const TestSection = () => {
   const text = getCloud();
 
   const processInput = (value) => {
-    // the user has finsihed this word
     setActiveCharIndex((index) => index + 1);
     setUserInput("");
 
-    // correct word
     setCorrectCharArray((data) => {
       const newResult = [...data];
       newResult[activeCharIndex] = value === text[activeCharIndex];
@@ -98,7 +96,7 @@ const TestSection = () => {
         ref={testRef}
         sx={{
           // lineHeight: "100%",
-          height: `${rowHeight * 3}px`,
+          height: `${rowHeight * 2}px`,
           overflow: "hidden",
         }}
       >
