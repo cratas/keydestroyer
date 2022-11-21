@@ -100,6 +100,7 @@ const TestSection = () => {
           // lineHeight: "100%",
           height: `${rowHeight * 2}px`,
           overflow: "hidden",
+          whiteSpace: 'normal'
         }}
       >
         {text.map((character, index) => (
