@@ -1,12 +1,8 @@
 import Layout from "../components/Layout";
 import { Box } from "@mui/system";
 import TestSection from "../components/TestSection";
-import { setCurrentTheme } from "../redux/currentThemeSlice";
-import { useSelector } from "react-redux";
 
-const Index = ({ setSelectedTheme }) => {
-  console.log(setSelectedTheme);
-
+const Index = () => {
   return (
     <Layout>
       <Box

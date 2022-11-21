@@ -57,6 +57,8 @@ const getCloud = () => {
   return text.split("");
 };
 
+
+// TODO: try to avoid wrapping text
 const TestSection = () => {
   const [currentRow, setCurrentRow] = useState<number>(0);
   const [currentRowIndex, setCurrentRowIndex] = useState<number>(-1);

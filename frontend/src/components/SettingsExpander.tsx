@@ -1,9 +1,11 @@
 import { Box } from "@mui/system";
 import React from "react";
-import SettingsIcon from "@mui/icons-material/Settings";
+import Brightness4Icon from "@mui/icons-material/Brightness4";
+import { useDispatch } from "react-redux";
+import { changeCurrentTheme } from "../redux/currentThemeSlice";
 
-// TODO: CSS set globally
-const SettingsExpander = () => {
+const SettingsExpander = ({ changeTheme }) => {
+  const dispatch = useDispatch();
   return (
     <Box
       sx={{
@@ -18,22 +20,12 @@ const SettingsExpander = () => {
         borderTopLeftRadius: 10,
         borderBottomLeftRadius: 10,
       }}
+      onClick={() => {
+        changeTheme();
+        dispatch(changeCurrentTheme())
+      }}
     >
-      <SettingsIcon
-        sx={{
-          color: "primary.main",
-          fontSize: 25,
-          animation: "spin 17s linear infinite",
-          "@keyframes spin": {
-            "0%": {
-              transform: "rotate(360deg)",
-            },
-            "100%": {
-              transform: "rotate(0deg)",
-            },
-          },
-        }}
-      />
+      <Brightness4Icon sx={{ color: "primary.main" }} />
     </Box>
   );
 };

@@ -3,12 +3,11 @@ import currentThemeSlice, {
   name as currentThemeName,
 } from "./currentThemeSlice";
 
-export const createStore = () => {
-  configureStore({
-    reducer: { [currentThemeName]: currentThemeSlice },
-  });
-};
+export const store = configureStore({
+  reducer: {
+    [currentThemeName]: currentThemeSlice,
+  },
+});
 
-const store: any = createStore();
-
-export default store;
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
