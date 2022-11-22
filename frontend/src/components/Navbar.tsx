@@ -1,5 +1,6 @@
 import { Box, Link, Button } from "@mui/material";
 import React from "react";
+import NextLink from "next/link";
 import BrandIcon from "./BrandIcon";
 
 const Navbar = () => {
@@ -15,15 +16,17 @@ const Navbar = () => {
       <BrandIcon />
 
       <Box>
-        <Link
-          href="#"
-          underline="none"
-          fontWeight="bold"
-          sx={{ color: "secondary.main" }}
-          mr={3}
-        >
-          Log In
-        </Link>
+        <NextLink href="/login">
+          <Link
+            href="#"
+            underline="none"
+            fontWeight="bold"
+            sx={{ color: "secondary.main" }}
+            mr={3}
+          >
+            Log In
+          </Link>
+        </NextLink>
         <Button
           variant="contained"
           sx={{
