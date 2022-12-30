@@ -1,13 +1,15 @@
+import { withUrqlClient } from "next-urql";
 import { Button, FormControl, TextField } from "@mui/material";
 import React from "react";
 import { useForm } from "react-hook-form";
 import Layout from "../components/Layout";
 import { FormLabel } from "@mui/material";
 import { useByeQuery, useHelloQuery } from "../generated/graphql";
+import { createUrqlClient } from "../utils/createUrqlClient";
 
 type Props = {};
 
-const login = () => {
+const Login = () => {
   const {
     register,
     formState: { errors },
@@ -22,14 +24,14 @@ const login = () => {
   const [, getHello] = useHelloQuery();
   const [, getBye] = useByeQuery();
 
-
-
   return (
     <Layout>
-      <FormControl onSubmit={async () => {
-        console.log("hello")
-        getBye();
-      }}>
+      <FormControl
+        onSubmit={async () => {
+          console.log("hello");
+          getBye();
+        }}
+      >
         <FormLabel>Email</FormLabel>
         <TextField
           type="text"
@@ -66,4 +68,4 @@ const login = () => {
   );
 };
 
-export default login;
+export default withUrqlClient(createUrqlClient, { ssr: true })(Login);

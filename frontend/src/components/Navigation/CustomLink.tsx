@@ -10,20 +10,17 @@ const CustomLink = forwardRef<HTMLAnchorElement, LinkProps>(function CustomLink(
   ref
 ) {
   return (
-    <NextLink
-      href={href}
-      passHref
-    >
+    <NextLink href={href} style={{ textDecoration: "none" }} passHref>
       <MuiLink
         ref={ref}
         underline="none"
         fontWeight="bold"
         sx={{ color: "secondary.main" }}
         {...muiProps}
+        component="span"
       />
     </NextLink>
   );
 });
-
 
 export default CustomLink;
