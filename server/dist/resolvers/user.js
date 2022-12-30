@@ -15,6 +15,9 @@ let UserResolver = class UserResolver {
     hello() {
         return "hello";
     }
+    bye() {
+        return "bye";
+    }
 };
 __decorate([
     (0, type_graphql_1.Query)(() => String),
@@ -22,6 +25,12 @@ __decorate([
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", void 0)
 ], UserResolver.prototype, "hello", null);
+__decorate([
+    (0, type_graphql_1.Query)(() => String),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", void 0)
+], UserResolver.prototype, "bye", null);
 UserResolver = __decorate([
     (0, type_graphql_1.Resolver)()
 ], UserResolver);

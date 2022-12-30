@@ -7,5 +7,10 @@ export class UserResolver {
   hello() {
     return "hello";
   }
+
+  @Query(() => String)
+  bye() {
+    return "bye";
+  }
 }
 

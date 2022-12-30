@@ -1,6 +1,6 @@
 import { Container } from "@mui/system";
 import React from "react";
-import Navbar from "./Navbar";
+import Navbar from "./Navigation/Navbar";
 
 const Layout = ({ children }) => {
   return (

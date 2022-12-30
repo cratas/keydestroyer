@@ -1,3 +1,6 @@
+
+import { withUrqlClient } from "next-urql";
+import { createUrqlClient } from "../utils/createUrqlClient";
 import Layout from "../components/Layout";
 import { Box } from "@mui/system";
 import TestSection from "../components/TestSection";
@@ -19,4 +22,6 @@ const Index = () => {
   );
 };
 
-export default Index;
+
+export default withUrqlClient(createUrqlClient, { ssr: false })(Index);
+

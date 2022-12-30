@@ -3,6 +3,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import Layout from "../components/Layout";
 import { FormLabel } from "@mui/material";
+import { useByeQuery, useHelloQuery } from "../generated/graphql";
 
 type Props = {};
 
@@ -12,15 +13,23 @@ const login = () => {
     formState: { errors },
     handleSubmit,
   } = useForm();
+
   const onSubmit = (data) => {
     console.log("RESULT", data);
     alert(JSON.stringify(data));
   };
-  console.log(errors);
+
+  const [, getHello] = useHelloQuery();
+  const [, getBye] = useByeQuery();
+
+
 
   return (
     <Layout>
-      <FormControl onSubmit={handleSubmit(onSubmit)}>
+      <FormControl onSubmit={async () => {
+        console.log("hello")
+        getBye();
+      }}>
         <FormLabel>Email</FormLabel>
         <TextField
           type="text"
@@ -48,6 +57,7 @@ const login = () => {
             backgroundColor: "secondary.main",
           }}
           size="medium"
+          // onClick={() => getHello()}
         >
           Log In
         </Button>

@@ -10,6 +10,8 @@ import { Provider } from "react-redux";
 import { store } from "../redux/store";
 import { THEME_MODE } from "../constants/enums";
 
+// const client = createClient({url: 'http://localhost:4000/graphql'})
+
 const MyApp = ({ Component, pageProps }: AppProps) => {
   const [currentTheme, setCurrentTheme] = useState<string>(THEME_MODE.LIGHT);
 
@@ -30,13 +32,13 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
       <Helmet>
         <title>Key Destroyer</title>
       </Helmet>
-      <Provider store={store}>
-        <ThemeProvider theme={theme}>
-          <CssBaseline />
-          <Component {...pageProps} />
-          <SettingsExpander changeTheme={handleChangeTheme} />
-        </ThemeProvider>
-      </Provider>
+        <Provider store={store}>
+          <ThemeProvider theme={theme}>
+            <CssBaseline />
+            <Component {...pageProps} />
+            <SettingsExpander changeTheme={handleChangeTheme} />
+          </ThemeProvider>
+        </Provider>
     </HelmetProvider>
   );
 };
